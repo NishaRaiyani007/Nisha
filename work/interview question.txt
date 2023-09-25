@@ -1,0 +1,57 @@
+Important and Interview Question of C Language:-
+
+1) What is Programming?
+
+2) What is SDLC? Explain the phases of SDLC
+
+3) What is mean by datatypes? How many types are there?
+
+4) What is variables?
+
+5) Explain rules of Variables.
+
+6) What is Conditional statements? How many conditional statements are 
+there?
+
+7) What is Keywords?How many keywords are there?
+
+8) What is Loops? How many types of Loops are there?
+
+9) What is Array? Explain types of Array.
+
+10) What is the another name of for and while loop?
+
+11) Where arrays will use in real world?Explain with examples
+
+12) What is strcmp and strcpy method?
+
+13) What is Functions?
+
+14) Explain types of functions.
+
+15) Explain the categories of functions.
+
+16) What is difference between array and structure.
+
+17) What is protocols?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
