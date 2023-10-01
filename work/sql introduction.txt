@@ -1,0 +1,114 @@
+DBMS:- Database Management System
+
+Database:-To store the large amount of data
+
+oracle
+mysql
+mongodb
+postgresql
+
+
+SQL:- Structured Query Language.
+
+---> It stores your data in a structured format
+using rows and columns(tables)
+
+mysql:- server
+
+host:- localhost(IP:- 127.0.0.1)
+
+
+Port:- 3306
+
+per software/company there is only one database
+
+but there are more than one table in one database
+
+Database creation:-
+
+CREATE DATABASE 12may_db
+
+To view all databases:-
+SHOW DATABASES
+
+int:-11
+varchar-0 to 255
+Table creation:-
+
+CREATE TABLE student
+(
+    stu_id int,
+    stu_name varchar(40),
+    stu_subject varchar(40)
+    
+    
+    
+    
+)
+
+Insertion of data in table:-
+
+INSERT INTO student(stu_id,stu_name,stu_subject) VALUES(1,"Milan","Python");
+INSERT INTO student(stu_id,stu_name,stu_subject) VALUES(2,"Raj","Java");
+INSERT INTO student(stu_id,stu_name,stu_subject) VALUES(3,"Nisha","Android");
+INSERT INTO student(stu_id,stu_name,stu_subject) VALUES(4,"Mansi","PHP");
+INSERT INTO student(stu_id,stu_name,stu_subject) VALUES(5,"Jayraj","HTML");
+ 
+To change any column name:-
+
+ALTER TABLE student CHANGE stu_name student_name varchar(40)
+
+To add new column:-
+
+ALTER TABLE student ADD stu_address varchar(40)
+
+To update particular data in table:-
+
+UPDATE student SET student_name="Manav" WHERE stu_id=3
+
+UPDATE student SET stu_subject="Flutter" WHERE stu_id=4
+
+
+To delete particular data from table:-
+
+DELETE FROM student WHERE stu_id=2
+
+
+To delete the whole data:-
+
+TRUNCATE TABLE student
+
+
+To delete the whole table:-
+
+DROP TABLE student
+
+Difference between drop and truncate:-
+
+Truncate will delete all the data from table while drop will
+delete the whole table
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
