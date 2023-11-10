@@ -1,0 +1,550 @@
+1.	What do you understand By Database?
+	A database is a structured collection of data that is organized and stored in a way that allows for efficient data retrieval, management, and manipulation. It serves as a central repository for information, enabling users to store, retrieve, and analyze data for various applications and purposes.
+       2.What is Normalization?
+	Normalization is a database design process used to organize data efficiently in a relational database, reducing data redundancy and ensuring data integrity. It's not specific to C++; it's a concept used in database management. 
+
+	Normalization involves breaking down a database into smaller, related tables and defining relationships between them. This process usually involves several normal forms, such as First Normal Form (1NF), Second Normal Form (2NF), and so on, each with specific rules for structuring data to minimize redundancy and prevent anomalies.
+
+	In C++, if you're working with a database, you'd typically use a database management system (DBMS) like MySQL, PostgreSQL, or SQLite, and you'd define the structure of your database tables and relationships using SQL (Structured Query Language), not C++. C++ can be used to build applications that interact with these databases, but the normalization process itself is primarily a database design concept.
+
+3. What is Difference between DBMS and RDBMS? in c plus
+The main differences between DBMS (Database Management System) and RDBMS (Relational Database Management System) are as follows, but please note that these differences are not specific to the C++ programming language:
+
+1. Data Structure:
+   - DBMS: DBMS can manage data stored in various formats, including hierarchical, network, and flat-file structures.
+   - RDBMS: RDBMS manages data in a structured manner using tables with rows and columns, following a relational model.
+
+2. Data Integrity:
+   - DBMS: DBMS may not enforce data integrity constraints like referential integrity.
+   - RDBMS: RDBMS enforces data integrity through features like primary keys, foreign keys, and constraints.
+
+3. Data Relationships:
+   - DBMS: Data in a DBMS may not have well-defined relationships, making it more flexible but potentially less structured.
+   - RDBMS: RDBMS enforces relationships between data tables, ensuring consistency and maintaining referential integrity.
+
+4. Query Language:
+   - DBMS: DBMS typically uses its own query language, which may vary from one system to another.
+   - RDBMS: RDBMS uses SQL (Structured Query Language) as the standard language for data manipulation and querying.
+
+5. Performance and Scalability:
+   - DBMS: DBMS systems may not be as optimized for high-performance and scalability as RDBMS systems.
+   - RDBMS: RDBMS systems are typically designed for high-performance, scalability, and efficient data retrieval.
+
+6. Examples:
+   - DBMS: Examples of DBMS include traditional file systems and NoSQL databases like MongoDB.
+   - RDBMS: Examples of RDBMS include MySQL, PostgreSQL, Oracle Database, and Microsoft SQL Server.
+
+In C++, or any programming language, you can interact with both DBMS and RDBMS systems by using appropriate libraries or connectors that enable you to connect to and manipulate data in these systems. However, the choice between DBMS and RDBMS depends on your specific requirements for data structure, integrity, and performance.
+
+
+4.What is MF Cod Rule of RDBMS Systems?
+	
+E.F Codd was a Computer Scientist who invented the Relational model for Database management. Based on relational model, the Relational database was created. Codd proposed 13 rules popularly known as Codd's 12 rules to test DBMS's concept against his relational model. Codd's rule actualy define what quality a DBMS requires in order to become a Relational Database Management System(RDBMS).
+
+5. What do you understand By Data Redundancy?
+	Data redundancy refers to the duplication of data within a database or information system. In the context of a database or any programming language like C++, it means that the same data is stored in multiple places or in multiple records within the database. This redundancy can occur for various reasons, such as poor database design, lack of normalization, or application logic.
+
+	Data redundancy can lead to several problems:
+
+1. Data Inconsistency: When the same data is stored in multiple places, there's a risk that it can be updated in one location but not in another. This leads to inconsistencies and inaccuracies in the data.
+
+2. Increased Storage Requirements: Redundant data consumes more storage space, which can be costly and inefficient.
+
+3. Complex Maintenance: When changes need to be made to redundant data, it requires updating multiple records, making maintenance more complex and error-prone.
+
+4. Decreased Performance: Redundant data can lead to slower query performance because more data needs to be processed.
+
+	To address data redundancy, it's common to use normalization techniques in the context of relational databases like RDBMS (Relational Database Management Systems). Normalization involves organizing data into related tables and establishing relationships between them, reducing redundancy and ensuring data integrity. In C++ or any programming language, you can work with databases and design your data structures to minimize redundancy and maintain data consistency.
+
+6.  What is DDL Interpreter?
+	A DDL (Data Definition Language) interpreter is a software component that processes SQL statements related to defining or modifying the structure of a database, such as creating tables, altering their attributes, or dropping them. It interprets and executes these statements in the context of a database management system.
+
+
+7. What is DML Compiler in SQL?
+
+In SQL, a DML (Data Manipulation Language) Compiler doesn't exist as a standalone concept. DML refers to SQL statements like SELECT, INSERT, UPDATE, and DELETE, which are used for querying and modifying data within a database.
+However, in the context of working with SQL databases in a C++ application, you may use libraries or frameworks that provide APIs for executing SQL DML statements. These libraries or frameworks act as intermediaries between your C++ code and the database management system, allowing you to interact with the database using DML statements.
+8. What is SQL Key Constraints writing an Example of SQL Key Constraints?
+	In SQL, key constraints are used to enforce the uniqueness of values within one or more columns in a table. There are several types of key constraints, including the PRIMARY KEY and UNIQUE constraints.
+
+	Here's an example of SQL key constraints in a C++ application using SQLite as the database:
+
+cpp
+#include <iostream>
+#include <sqlite3.h>
+
+int main() {
+    sqlite3* db;
+    int rc = sqlite3_open("my_database.db", &db);
+
+    if (rc) {
+        std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
+        return rc;
+    } else {
+        std::cout << "Opened database successfully" << std::endl;
+    }
+
+    // Create a table with a PRIMARY KEY constraint
+    const char* createTableSQL = "CREATE TABLE Employees ("
+                                  "ID INTEGER PRIMARY KEY, "
+                                  "FirstName TEXT, "
+                                  "LastName TEXT);";
+
+    rc = sqlite3_exec(db, createTableSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+        return rc;
+    } else {
+        std::cout << "Table created successfully" << std::endl;
+    }
+
+    // Attempt to insert a duplicate record (violating the PRIMARY KEY constraint)
+    const char* insertSQL = "INSERT INTO Employees (ID, FirstName, LastName) VALUES (1, 'John', 'Doe');";
+
+    rc = sqlite3_exec(db, insertSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+    } else {
+        std::cout << "Record inserted successfully" << std::endl;
+    }
+
+    sqlite3_close(db);
+    return 0;
+}
+
+
+	In this example, we create a table named "Employees" with a PRIMARY KEY constraint on the "ID" column. The PRIMARY KEY constraint ensures that the values in the "ID" column are unique, and any attempt to insert a duplicate value will result in an error. In this case, we attempt to insert a record with the same "ID" value (1) twice, which violates the PRIMARY KEY constraint.
+
+	Please note that this example uses the SQLite database library, and the specific syntax for key constraints may vary depending on the database management system you are using (e.g., MySQL, PostgreSQL, SQL Server).
+
+9. What is save Point? How to create a save Point write a Query?
+
+	In SQL, a savepoint is a point within a transaction to which you can later roll back. It allows you to create a point in your transaction and later roll back to that point, undoing any changes made after the savepoint was created while preserving changes made before it. This can be useful when you want to apply partial changes within a transaction but still have the ability to undo those changes if necessary.
+
+	To create a savepoint in SQL, you typically use the `SAVEPOINT` statement. Here's how you can create a savepoint in a C++ application using the SQLite database library as an example:
+
+cpp
+#include <iostream>
+#include <sqlite3.h>
+
+int main() {
+    sqlite3* db;
+    int rc = sqlite3_open("my_database.db", &db);
+
+    if (rc) {
+        std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
+        return rc;
+    } else {
+        std::cout << "Opened database successfully" << std::endl;
+    }
+
+    // Begin a transaction
+    const char* beginTransactionSQL = "BEGIN;";
+    rc = sqlite3_exec(db, beginTransactionSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+        return rc;
+    }
+
+    // Create a savepoint
+    const char* createSavepointSQL = "SAVEPOINT my_savepoint;";
+    rc = sqlite3_exec(db, createSavepointSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+        return rc;
+    } else {
+        std::cout << "Savepoint created successfully" << std::endl;
+    }
+
+    // Perform some SQL operations within the transaction
+
+    // Rollback to the savepoint if needed
+    const char* rollbackToSavepointSQL = "ROLLBACK TO my_savepoint;";
+    rc = sqlite3_exec(db, rollbackToSavepointSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+    } else {
+        std::cout << "Rolled back to the savepoint successfully" << std::endl;
+    }
+
+    // Commit the transaction
+    const char* commitTransactionSQL = "COMMIT;";
+    rc = sqlite3_exec(db, commitTransactionSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+    } else {
+        std::cout << "Transaction committed successfully" << std::endl;
+    }
+
+    sqlite3_close(db);
+    return 0;
+}
+
+
+	In this example, we first begin a transaction using the `BEGIN` statement. Within the transaction, we create a savepoint named "my_savepoint" using the `SAVEPOINT` statement. If you want to undo changes made within the transaction back to this savepoint, you can use the `ROLLBACK TO` statement followed by the savepoint name. Finally, you can commit the transaction using the `COMMIT` statement.
+
+	Please note that the specific SQL syntax for savepoints may vary depending on the database management system you are using.
+
+10. What is trigger and how to create a Trigger in SQL?
+	In SQL, a trigger is a database object that is associated with a table and is automatically executed when a particular event occurs, such as an INSERT, UPDATE, DELETE, or other data modification operation. Triggers are used to enforce data integrity, automate tasks, log changes, and perform various actions in response to specific database events.
+
+	To create a trigger in SQL using a C++ application, you typically use the database-specific library or framework for your chosen database management system (e.g., SQLite, MySQL, PostgreSQL, SQL Server). Below is an example of creating a trigger using the SQLite library in C++:
+
+cpp
+#include <iostream>
+#include <sqlite3.h>
+
+int main() {
+    sqlite3* db;
+    int rc = sqlite3_open("my_database.db", &db);
+
+    if (rc) {
+        std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
+        return rc;
+    } else {
+        std::cout << "Opened database successfully" << std::endl;
+    }
+
+    // Create a table
+    const char* createTableSQL = "CREATE TABLE Customers ("
+                                  "ID INTEGER PRIMARY KEY, "
+                                  "Name TEXT, "
+                                  "Balance REAL);";
+
+    rc = sqlite3_exec(db, createTableSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+        return rc;
+    } else {
+        std::cout << "Table created successfully" << std::endl;
+    }
+
+    // Create a trigger that fires after an UPDATE operation
+    const char* createTriggerSQL = "CREATE TRIGGER UpdateBalanceTrigger "
+                                   "AFTER UPDATE ON Customers "
+                                   "FOR EACH ROW "
+                                   "BEGIN "
+                                   "    INSERT INTO BalanceHistory (CustomerID, OldBalance, NewBalance, ChangeDate) "
+                                   "    VALUES (OLD.ID, OLD.Balance, NEW.Balance, datetime('now')); "
+                                   "END;";
+
+    rc = sqlite3_exec(db, createTriggerSQL, 0, 0, 0);
+
+    if (rc != SQLITE_OK) {
+        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+    } else {
+        std::cout << "Trigger created successfully" << std::endl;
+    }
+
+    sqlite3_close(db);
+    return 0;
+}
+
+
+	In this example, we first create a table named "Customers" and then define a trigger named "UpdateBalanceTrigger." The trigger is set to fire "AFTER UPDATE" operations on the "Customers" table. It logs changes in the "Balance" column to a hypothetical "BalanceHistory" table whenever a customer's balance is updated.
+
+	The SQL syntax for creating triggers may vary depending on the database management system you are using, so you should consult the documentation for your specific database to determine the syntax for creating triggers in C++.
+
+	Task-1// Create Database
+Create Database College;
+
+// Create Table
+
+create TABLE student
+
+(
+   stu_Rollno int primary key auto increment,
+   stu_Name varchar(40),
+   stu_Branch varchar(40)
+)
+
+
+//Insert values in table student
+
+INSERT INTO `student` (`stu_Rollno`, `stu_Name`, `stu_branch`) VALUES ('1', 'Jay', 'Computer science'), ('2', 'suhani', 'Electronic and Com'), ('3', 'Kriti', 'Electronic and Com');
+
+//create another table exam;
+
+CREATE TABLE Exam 
+( 
+    Ex_Rollno int, 
+    Ex_S_code varchar(40), 
+    Ex_Marks int, 
+    Ex_P_code varchar(40),
+    
+    Ex_Rollno_fk int,
+    
+    FOREIGN KEY (Ex_Rollno_fk) REFERENCES student (stu_Rollno)
+    )
+
+//insert values into table name college:
+
+INSERT INTO college (Ex_Rollno,Ex_S_code,Ex_Marks,Ex_P_code) VALUES (1,'CS11',50,'CS');
+INSERT INTO college (Ex_Rollno,Ex_S_code,Ex_Marks,Ex_P_code) VALUES (1,CS12',60,'CS');
+INSERT INTO college (Ex_Rollno,Ex_S_code,Ex_Marks,Ex_P_code) VALUES (2,'EC101',66,'EC');
+INSERT INTO college (Ex_Rollno,Ex_S_code,Ex_Marks,Ex_P_code) VALUES (1,'EC102',70,'EC');
+INSERT INTO college (Ex_Rollno,Ex_S_code,Ex_Marks,Ex_P_code) VALUES (1,'EC101',45,'EC');
+INSERT INTO college (Ex_Rollno,Ex_S_code,Ex_Marks,Ex_P_code) VALUES (1,'EC102',50,'EC');
+
+
+Task-2
+
+CREATE DATABASE company;
+
+
+
+CREATE TABLE employee
+(
+First_Name varchar (40),
+Last_Name varchar (40),
+Address varchar (40),
+City varchar (40),
+Age int (10)
+)
+
+
+
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Mickey','Mouse','123 Fantasy Way','Anaheim',73);
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Bat','Man','321 Cavern Ave','Gotham',54);
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Wonder','Woman','987 Truth Way','Paradise',39);
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Donald','Duck','555Quack Street','Mallard',65);
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Bugs','Bunny','567 Carrot Street','Rascal',58);
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Wiley','Coyote','999 Acme Way','Canyon',61);
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Cat','Woman','234 Purrfect Street','Hairball',32);
+
+INSERT INTO employee(First_Name,Last_Name,Address,City,Age) VALUES ('Tweety','Bird',543,'Itotltaw',28);
+
+Task-3
+
+// Create Database
+Create Database Company;
+
+// Create Table
+
+create TABLE employee
+(
+    emp_id int ,
+    emp_First_name VARCHAR (40) PRIMARY KEY,
+    emp_Last_name VARCHAR (40),
+    emp_salary int,
+    emp_Join_Date datetime,
+    emp_department VARCHAR (40)
+    
+ );
+
+
+// Insert Data into Table Employee
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(1, 'John', 'Abraham', '1000000', '2013-01-01 12:00:00', 'Banking');
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(2, 'Michael', 'Clarke', '800000', '2013-01-01 12:00:00', 'Insurance'); 
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(3, 'Roy', 'Thomas', '700000', '2013-02-01 12:00:00', 'Banking');
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(3, 'Tom', 'Jose', '600000', '2013-02-01 12:00:00', 'Insurance'); 
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(4, 'Jerry', 'Pinto', '650000', '2013-02-01 12:00:00', 'Insurance'); 
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(5, 'Philip', 'Mathew', '750000', '2013-01-01 12:00:00', 'Services');
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(6, 'TestName1', '123', '650000', '2013-01-01 12:00:00', 'Services'); 
+
+INSERT INTO employee (emp_id,emp_First_name, emp_Last_name, emp_salary, emp_Join_Date, emp_department) 
+VALUES 
+(7, 'TestName2', 'Lname%', '600000', '2013-02-01 12:00:00', 'Insurance');
+
+
+
+// Create Table Incentive
+
+
+CREATE TABLE incentives
+(
+	emp_Ref_id INT ,
+   	emp_incentive_date date,
+    	emp_amount int,
+  
+    	emp_amount_fk VARCHAR (40),
+    
+    FOREIGN KEY (emp_amount_fk) REFERENCES employee (emp_First_name)
+    
+);
+
+// Insert Data into Table Incentives
+
+INSERT INTO incentives (emp_Ref_id, emp_incentive_date, emp_amount) 
+VALUES 
+(1, '2013-02-01', 5000); 
+
+INSERT INTO incentives (emp_Ref_id, emp_incentive_date, emp_amount) 
+VALUES 
+(2, '2013-02-01', 3000); 
+
+INSERT INTO incentives (emp_Ref_id, emp_incentive_date, emp_amount) 
+VALUES 
+(3, '2013-02-01', 4000);
+
+INSERT INTO incentives (emp_Ref_id, emp_incentive_date, emp_amount) 
+VALUES 
+(1, '2013-01-01', 4500);
+
+INSERT INTO incentives (emp_Ref_id, emp_incentive_date, emp_amount) 
+VALUES 
+(2, '2013-01-01', 3500);
+
+
+
+
+// Conditions
+
+-- Condition 1 
+SELECT * from employee WHERE emp_First_name = "Tom";
+
+-- Condition 2
+SELECT emp_First_name, emp_Join_Date, emp_salary from employee ;
+
+-- Condition 3
+SELECT * from employee ORDER BY emp_First_name ASC, emp_salary DESC;
+
+-- Condition 4
+SELECT * FROM employee WHERE emp_First_name LIKE "J%";
+
+-- Condition 5
+SELECT emp_department, MAX(emp_salary) AS Max_Salary
+FROM employee
+GROUP BY emp_department
+ORDER BY Max_Salary ASC;
+
+-- Condition 6
+Select first_name, incentive amount from employee and incentives table for
+those employees who have incentives and incentive amount greater than 3000 
+
+SELECT e.first_name, i.incentive_amount
+FROM employee e
+JOIN incentives i ON e.employee_id = i.employee_id
+WHERE i.incentive_amount > 3000;
+
+
+--condition 7
+Create After Insert trigger on Employee table which insert records in view
+table 
+
+CREATE TABLE view_table (
+    employee_id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50)
+    
+);
+
+
+DELIMITER //
+CREATE TRIGGER after_employee_insert
+AFTER INSERT
+ON Employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO view_table (employee_id, first_name, last_name)
+    VALUES (NEW.employee_id, NEW.first_name, NEW.last_name);
+END;
+//
+DELIMITER ;	
+
+
+Task-4
+create database company
+
+
+table-1:
+create table Salesperson
+(
+  SNo INT PRIMARY KEY Auto_increment,
+  SNAME varchar(40),
+  CITY varchar(40),
+  COMM int
+
+)
+
+table-2:
+create table customer
+(
+  CNM int,
+  CNAME varchar(40),
+  CITY varchar(40),
+  Rating int,
+
+  SNo_fk int,
+  Foreign Key (SNo_fk) reference (SNo)
+
+)
+
+//insert values in tables.
+
+INSERT INTO `salesperson` (`SNo`, `SName`, `CITY`, `COMM`) VALUES ('1001', 'Peel', 'London', '.12'), (NULL, 'Serres', 'San Jose', '.13'), (NULL, 'Motika', 'London', '.11'), (NULL, 'Rafkin', 'Barcelona', '.15'), (NULL, 'Axelrod', 'New York', '.1');
+
+
+
+INSERT INTO `customer` (`CNM`, `CNAME`, `CITY`, `Rating`, `SNO`, `SNO_fk`) VALUES ('201', 'Hoffman', 'London', '100', '1001'), ('Giovanne', 'Roe', '200', '1003'), ( 'Liu', 'San Jose', '300', '1002'), ('Grass', 'Barcelona', '100', '1002'), ('206', 'Clemens', 'London', '300', '1004'), ('Pereira', 'Roe', '100', '1003');
+
+task-a
+--All order for more than $1000.
+
+--select *from customer where SNo_fk>1000
+
+
+task-b
+--Names and cities of all salesperson in London with commission above 0.12
+
+select *from salesperson where COMM>0.12
+
+
+task-c
+--All salesperson either in Barcelona or in London.
+
+select* from salesperson where CITY="Barcelona" or "London"
+
+
+task-d
+--All salesperson with commission between 0.10 and 0.12.
+(Boundary values should be excluded).
+
+select* from salesperson where COMM between 0.12 and 0.12
+
+task-e
+--All customer excluding those with rating <=100 unless they are located in Rome.
+
+
+
+
+
