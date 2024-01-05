@@ -1,0 +1,2 @@
+
+<tr><td><img src="images/imgcon.png" height="32" width="25"><b><a href="logout.php" style="color:#CC0000"><font size="6">Logout</font></a></b> </td></tr></table>

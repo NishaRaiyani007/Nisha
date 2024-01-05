@@ -1,0 +1,10 @@
+$a="insert into registration(uname,pwd,cpwd,fname,lname,address,email,cno,bdate,gender,city,state,country,profilephoto) values('$nm','$pawd','$cpawd','$firnm','$lasnm','$addr','$emid',$contno,'$birdt','$gen','$city','$sta','$coun','$path')";
+		if(mysql_query($a))
+		{
+			header('location:login.php');
+		}
+		else
+		{
+			header('location:registration.php');
+		}
+?>

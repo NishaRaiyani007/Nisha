@@ -1,0 +1,29 @@
+ <marquee behavior="alternate" scrolldelay="4" scrollamount="4">
+		  <img src="images/logo5.png" height="395" width="1021" />
+		  <img src="images/bigimg1.jpg" height="395px" width="1020" />
+		  <img src="images/j1.jpg" width="586" height="395px"  />
+		  <img src="images/bigimg2.png" height="395" width="1019" />
+		  </marquee>
+	
+
+
+
+		if(frm.pwd.value=="")
+		{
+			alert("Plese Enter Password");
+			frm.pwd.focus();
+			return false;
+		}
+		if(frm.cpwd.value=="")
+		{
+			alert("Plese Enter Confirm Password");
+			frm.cpwd.focus();
+			return false;
+		}
+		if(frm.pwd.value!=frm.cpwd.value)
+		{
+			alert("Your password and confirm password is not match");
+			frm.cpwd.value=""
+			frm.cpwd.focus();
+			return false;
+		}
